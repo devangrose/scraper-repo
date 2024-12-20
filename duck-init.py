@@ -3,8 +3,8 @@ import duckdb
 # Connect to an in-memory database (or specify a file path for persistence)
 conn = duckdb.connect("./duck.db")
 
-conn.execute("DROP TABLE IF EXISTS posts")
 conn.execute("DROP TABLE IF EXISTS comments")
+conn.execute("DROP TABLE IF EXISTS posts")
 
 conn.execute("DROP SEQUENCE IF EXISTS postid")
 conn.execute("DROP SEQUENCE IF EXISTS commentid")
@@ -30,6 +30,7 @@ conn.execute("""
         id INTEGER PRIMARY KEY DEFAULT nextval('commentid'),
         post_id INTEGER,
         text TEXT,
+        sentiment TEXT,
         created_at TIMESTAMP,
         FOREIGN KEY (post_id) REFERENCES posts(id)
     )
